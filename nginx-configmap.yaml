@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: nginx-custom-page
-  namespace: my-custom-namespace # सुनिश्चित करें कि यह आपके एप्लिकेशन के नेमस्पेस से मेल खाता है
+  namespace: chota-don # सुनिश्चित करें कि यह आपके एप्लिकेशन के नेमस्पेस से मेल खाता है
 data:
   index.html: | # <--- यह लाइन बहुत महत्वपूर्ण है! 'index.html' कुंजी है, और '|' इंगित करता है कि सामग्री मल्टीलाइन स्ट्रिंग है।
     <!DOCTYPE html>
