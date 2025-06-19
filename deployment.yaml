@@ -3,7 +3,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: nginx-deployment
-  namespace: my-custom-namespace
+  namespace: chota-don
   labels:
     app: nginx
 spec:
@@ -34,7 +34,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: nginx-service
-  namespace: my-custom-namespace
+  namespace: chota-don
 spec:
   selector:
     app: nginx
