@@ -1,0 +1,46 @@
+# Deployment for Nginx application
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  namespace: my-custom-namespace
+  labels:
+    app: nginx
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.25.3
+        ports:
+        - containerPort: 80
+        volumeMounts: # <--- यह खंड जोड़ें
+        - name: nginx-html-volume
+          mountPath: /usr/share/nginx/html # Nginx का डिफ़ॉल्ट वेब रूट
+      volumes: # <--- यह खंड जोड़ें
+      - name: nginx-html-volume
+        configMap:
+          name: nginx-custom-page # ConfigMap का नाम जो हमने बनाया था
+---
+# Service to expose the Nginx application externally
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-service
+  namespace: my-custom-namespace
+spec:
+  selector:
+    app: nginx
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+      nodePort: 32000 # आपका चुना हुआ NodePort
+  type: NodePort
